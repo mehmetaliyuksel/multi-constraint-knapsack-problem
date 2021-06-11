@@ -7,20 +7,15 @@ public class Main {
     public static List<Item> items;
     public static List<Knapsack> knapsacks;
     public final static int T = 2; // TOURNAMENT_SELECTION_LIMIT
-    public final static double MUTATION_CONST = 0.2;
+    public final static double MUTATION_CONST = 0.05;
 
-//    int[] itemValues = {1898, 440, 22507, 270, 14148, 3100, 4650, 30800, 615, 4975,
-//            1160, 4225, 510, 11880, 479, 440, 490, 330, 110, 560,
-//            24355, 2885, 11748, 4550, 750, 3720, 1950, 10500};
-//
-//    int[] knapsackCap = {600, 600};
 
     public static Individual randomGenome(int size) {
         Random rand = new Random();
         Individual ind;
         int fit;
         StringBuilder genome = new StringBuilder();
-        //String init ="";
+
         genome.append("0".repeat(Math.max(0, itemSize)));
         for (int i = 0; i < size; i++) {
             if (rand.nextBoolean()) {
@@ -84,10 +79,10 @@ public class Main {
         int midPointIndex = (female.getGenome().length() / 2) - 1;
 
         String maleFirstPart = male.getGenome().substring(0, midPointIndex);
-        String maleLastPart = male.getGenome().substring(midPointIndex, male.getGenome().length());
+        String maleLastPart = male.getGenome().substring(midPointIndex);
 
         String femaleFirstPart = female.getGenome().substring(0, midPointIndex);
-        String femaleLastPart = female.getGenome().substring(midPointIndex, male.getGenome().length());
+        String femaleLastPart = female.getGenome().substring(midPointIndex);
 
         String firstChild = maleFirstPart + femaleLastPart;
         String secondChild = femaleFirstPart + maleLastPart;
@@ -151,9 +146,8 @@ public class Main {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             population.add(randomGenome(itemSize));
         }
-        for (int i = 0; i < 20000; i++) {
+        for (int i = 0; i < 120000; i++) {
             generateNewGeneration(population);
-            Collections.sort(population);
             System.out.println(population.get(population.size() - 1).getFitness());
         }
 

@@ -51,7 +51,7 @@ public class IOManager {
         try {
             FileWriter myWriter = new FileWriter("output.txt");
             System.out.println("Writing to output.txt");
-            myWriter.write("" + value);
+            myWriter.write("" + value + "\n");
             for (int i = 0; i < genome.length(); i++) {
                 myWriter.write(genome.charAt(i) + "\n");
             }
