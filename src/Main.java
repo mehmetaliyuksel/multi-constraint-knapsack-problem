@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     public static final int POPULATION_SIZE = 200;
     public static int itemSize = 0;
-    public static int generationCount = 0;
+    public static int NUM_OF_GENERATIONS = 200000;
     public static List<Item> items;
     public static List<Knapsack> knapsacks;
     public final static int T = 2; // TOURNAMENT_SELECTION_LIMIT
@@ -146,9 +146,9 @@ public class Main {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             population.add(randomGenome(itemSize));
         }
-        for (int i = 0; i < 120000; i++) {
+        for (int i = 0; i < NUM_OF_GENERATIONS; i++) {
             generateNewGeneration(population);
-            System.out.println(population.get(population.size() - 1).getFitness());
+            System.out.println(population.get(population.size() - 1).getFitness()+ " \tGENERATION = " +i);
         }
 
         ioManager.generateOutput(population.get(population.size() - 1).getFitness(),
