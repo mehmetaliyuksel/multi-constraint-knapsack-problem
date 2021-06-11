@@ -46,7 +46,7 @@ public class Main {
     public static boolean checkFeasibility(String genome) {
         int totalConstraintSum;
         for (int i = 0; i < knapsacks.size(); i++) {
-            totalConstraintSum=0;
+            totalConstraintSum = 0;
             for (int j = 0; j < itemSize; j++) {
                 if (genome.charAt(j) == '1')
                     totalConstraintSum += items.get(j).getConstraints().get(i);
@@ -59,7 +59,7 @@ public class Main {
 
     public static List<Individual> selectParents(List<Individual> population) {
 
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < POPULATION_SIZE; i++) {
             list.add(i);
         }
@@ -140,7 +140,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        IOManager ioManager = new IOManager("sample3.txt");
+        IOManager ioManager = new IOManager("sample1.txt");
 
         AbstractMap.SimpleEntry<List<Knapsack>, List<Item>> entry = ioManager.readFile();
         knapsacks = entry.getKey();
@@ -151,13 +151,14 @@ public class Main {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             population.add(randomGenome(itemSize));
         }
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 20000; i++) {
             generateNewGeneration(population);
             Collections.sort(population);
             System.out.println(population.get(population.size() - 1).getFitness());
         }
-        System.out.println("aa");
 
+        ioManager.generateOutput(population.get(population.size() - 1).getFitness(),
+                population.get(population.size() - 1).getGenome());
     }
 
 }

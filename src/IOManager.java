@@ -1,4 +1,5 @@
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -43,6 +44,21 @@ public class IOManager {
             e.printStackTrace();
             System.exit(-1);
             return null;
+        }
+    }
+
+    public void generateOutput(int value, String genome) {
+        try {
+            FileWriter myWriter = new FileWriter("output.txt");
+            System.out.println("Writing to output.txt");
+            myWriter.write("" + value);
+            for (int i = 0; i < genome.length(); i++) {
+                myWriter.write(genome.charAt(i) + "\n");
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while generating the output file.");
+            e.printStackTrace();
         }
     }
 }
