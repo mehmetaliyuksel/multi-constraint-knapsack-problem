@@ -1,6 +1,6 @@
 
 public class Knapsack {
-    private int capacity;
+    private final int capacity;
 
     public Knapsack(int capacity) {
         this.capacity = capacity;
@@ -8,9 +8,5 @@ public class Knapsack {
 
     public int getCapacity() {
         return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 }

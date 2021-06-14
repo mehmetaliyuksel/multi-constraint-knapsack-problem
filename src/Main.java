@@ -9,8 +9,6 @@ public class Main {
     public static String OUTPUT_FILE = "input.txt";
     public static List<Item> items;
     public static List<Knapsack> knapsacks;
-    public final static int T = 2; // TOURNAMENT_SELECTION_LIMIT
-
 
     public static void main(String[] args) {
         Map<String, String> options = new HashMap<>();
