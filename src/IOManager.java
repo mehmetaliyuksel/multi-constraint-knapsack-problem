@@ -8,15 +8,17 @@ import java.util.Scanner;
 
 public class IOManager {
 
-    private final String fileName;
+    private final String inputFile;
+    private final String outputFile;
 
-    public IOManager(String fileName) {
-        this.fileName = fileName;
+    public IOManager(String inputFile, String outputFile) {
+        this.inputFile = inputFile;
+        this.outputFile = outputFile;
     }
 
     public AbstractMap.SimpleEntry<List<Knapsack>, List<Item>> readFile() {
         try {
-            FileInputStream fis = new FileInputStream(fileName);
+            FileInputStream fis = new FileInputStream(inputFile);
             Scanner sc = new Scanner(fis);
 
             int numOfKnapsacks = sc.nextInt();
@@ -49,8 +51,8 @@ public class IOManager {
 
     public void generateOutput(int value, String genome) {
         try {
-            FileWriter myWriter = new FileWriter("output.txt");
-            System.out.println("Writing to output.txt");
+            FileWriter myWriter = new FileWriter(outputFile);
+            System.out.println("Writing to " + outputFile);
             myWriter.write("" + value + "\n");
             for (int i = 0; i < genome.length(); i++) {
                 myWriter.write(genome.charAt(i) + "\n");
