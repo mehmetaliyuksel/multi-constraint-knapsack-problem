@@ -1,6 +1,9 @@
-public class Individual implements Comparable<Individual>{
+import java.util.ArrayList;
+
+public class Individual implements Comparable<Individual> {
     private String genome;
     private int fitness;
+
 
     public Individual(String genome, int fitness) {
         this.genome = genome;
@@ -27,4 +30,6 @@ public class Individual implements Comparable<Individual>{
     public void setFitness(int fitness) {
         this.fitness = fitness;
     }
+
+
 }

@@ -152,6 +152,11 @@ public class MultiDimensionalKnapsackSolver {
         return population.get(population.size() - 1);
     }
 
+
+    private String repair(Individual infeasible){
+       return "";
+    }
+
     public void run() {
 
         for (int i = 0; i < POPULATION_SIZE; i++) {
@@ -160,6 +165,8 @@ public class MultiDimensionalKnapsackSolver {
         for (int i = 0; i < NUM_OF_GENERATIONS; i++) {
             generateNewGeneration(population);
             System.out.println(population.get(population.size() - 1).getFitness() + " \tGENERATION = " + i);
+            if(getBestSolution().getFitness() == 1095445)
+                break;
         }
     }
 }

@@ -2,10 +2,10 @@ import java.util.*;
 
 public class Main {
     public static int POPULATION_SIZE = 200;
-    public static int NUM_OF_GENERATIONS = 200000;
+    public static int NUM_OF_GENERATIONS = 20000000;
     public static double MUTATION_RATE = 0.05;
     public static double CROSS_OVER_RATE = 0.5;
-    public static String INPUT_FILE = "input.txt";
+    public static String INPUT_FILE = "test1.txt";
     public static String OUTPUT_FILE = "output.txt";
     public static List<Item> items;
     public static List<Knapsack> knapsacks;
