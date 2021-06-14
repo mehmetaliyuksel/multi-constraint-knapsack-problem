@@ -1,16 +1,15 @@
 import java.util.ArrayList;
 
-public class Item {
+public class Item implements Comparable<Item> {
 
     private final ArrayList<Integer> constraints;
     private final int value;
-    private final double averageProfit;
+    private double averageProfit;
 
 
     public Item(int value) {
         this.constraints = new ArrayList<>();
         this.value = value;
-        this.averageProfit=calculateAverageProfit();
     }
 
     public ArrayList<Integer> getConstraints() {
@@ -20,15 +19,21 @@ public class Item {
     public int getValue() {
         return value;
     }
+
     public double getAverageProfit() {
         return averageProfit;
     }
-    public double calculateAverageProfit(){
-        double weightSum=0;
+
+    public void calculateAverageProfit() {
+        double weightSum = 0;
         for (Integer constraint : constraints) {
             weightSum += constraint;
         }
-        return value/weightSum;
+        this.averageProfit = value / weightSum;
     }
 
+    @Override
+    public int compareTo(Item o) {
+        return Double.compare(this.averageProfit, o.getAverageProfit());
+    }
 }

@@ -40,6 +40,10 @@ public class IOManager {
                     items.get(j).getConstraints().add(sc.nextInt());
                 }
             }
+
+            for (Item item : items) {
+                item.calculateAverageProfit();
+            }
             sc.close();
             return new AbstractMap.SimpleEntry<>(knapsacks, items);
         } catch (IOException e) {
