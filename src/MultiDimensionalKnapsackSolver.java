@@ -228,9 +228,8 @@ public class MultiDimensionalKnapsackSolver {
         for (int i = 0; i < NUM_OF_GENERATIONS; i++) {
             generateNewGeneration(population);
             System.out.println("Current value = " + population.get(population.size() - 1).getFitness() + " " +
-                    "\t\tGENERATION = " + i);
-            if (getBestSolution().getFitness() == 1095445)
-                break;
+                    "\t\tGENERATION = " + i+1);
+
         }
 
         long end = System.currentTimeMillis();
