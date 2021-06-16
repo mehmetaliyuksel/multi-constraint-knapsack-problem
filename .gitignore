@@ -1,6 +1,5 @@
 .idea
 out
 *.iml
-output.txt
 *.class
 *.txt
