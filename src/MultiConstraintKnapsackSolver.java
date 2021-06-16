@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MultiDimensionalKnapsackSolver {
+public class MultiConstraintKnapsackSolver {
 
     private final int POPULATION_SIZE;
     private final int NUM_OF_GENERATIONS;
@@ -14,8 +14,8 @@ public class MultiDimensionalKnapsackSolver {
     private final Map<Integer, Integer> defaultIndexToSortedIndex;
     private final Map<Integer, Integer> sortedIndexToDefaultIndex;
 
-    public MultiDimensionalKnapsackSolver(int POPULATION_SIZE, int NUM_OF_GENERATIONS, double MUTATION_RATE,
-                                          double CROSS_OVER_RATE, List<Item> items, List<Knapsack> knapsacks) {
+    public MultiConstraintKnapsackSolver(int POPULATION_SIZE, int NUM_OF_GENERATIONS, double MUTATION_RATE,
+                                         double CROSS_OVER_RATE, List<Item> items, List<Knapsack> knapsacks) {
         this.POPULATION_SIZE = POPULATION_SIZE;
         this.NUM_OF_GENERATIONS = NUM_OF_GENERATIONS;
         this.MUTATION_RATE = MUTATION_RATE;

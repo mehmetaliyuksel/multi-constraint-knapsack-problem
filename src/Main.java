@@ -39,17 +39,17 @@ public class Main {
         knapsacks = entry.getKey();
         items = entry.getValue();
 
-        MultiDimensionalKnapsackSolver multiDimensionalKnapsackSolver =
-                new MultiDimensionalKnapsackSolver(POPULATION_SIZE, NUM_OF_GENERATIONS, MUTATION_RATE, CROSS_OVER_RATE,
+        MultiConstraintKnapsackSolver multiConstraintKnapsackSolver =
+                new MultiConstraintKnapsackSolver(POPULATION_SIZE, NUM_OF_GENERATIONS, MUTATION_RATE, CROSS_OVER_RATE,
                         items, knapsacks);
 
 
         long start = System.currentTimeMillis();
-        multiDimensionalKnapsackSolver.run();
+        multiConstraintKnapsackSolver.run();
         long end = System.currentTimeMillis();
         System.out.println("Execution time in seconds: " + (end - start) / 1000.0);
 
-        Individual bestSolution = multiDimensionalKnapsackSolver.getBestSolution();
+        Individual bestSolution = multiConstraintKnapsackSolver.getBestSolution();
         ioManager.generateOutput(bestSolution.getFitness(), bestSolution.getGenome());
     }
 
