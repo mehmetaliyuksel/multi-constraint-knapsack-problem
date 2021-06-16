@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MultiDimensionalKnapsackSolver {
 
@@ -14,6 +11,8 @@ public class MultiDimensionalKnapsackSolver {
     private final List<Knapsack> knapsacks;
     private final List<Individual> population;
     private final List<Integer> parentIndices;
+    private final Map<Integer, Integer> defaultIndexToSortedIndex;
+    private final Map<Integer, Integer> sortedIndexToDefaultIndex;
 
     public MultiDimensionalKnapsackSolver(int POPULATION_SIZE, int NUM_OF_GENERATIONS, double MUTATION_RATE,
                                           double CROSS_OVER_RATE, List<Item> items, List<Knapsack> knapsacks) {
@@ -33,6 +32,16 @@ public class MultiDimensionalKnapsackSolver {
         this.profitBasedSortedItems = new ArrayList<>();
         profitBasedSortedItems.addAll(items);
         Collections.sort(profitBasedSortedItems);
+
+        defaultIndexToSortedIndex = new HashMap<>();
+        for (int i = 0; i < items.size(); i++) {
+            defaultIndexToSortedIndex.put(i, profitBasedSortedItems.indexOf(items.get(i)));
+        }
+
+        sortedIndexToDefaultIndex = new HashMap<>();
+        for (int i = 0; i < items.size(); i++) {
+            sortedIndexToDefaultIndex.put(i, items.indexOf(profitBasedSortedItems.get(i)));
+        }
     }
 
     private Individual randomGenome(int size) {
@@ -179,7 +188,7 @@ public class MultiDimensionalKnapsackSolver {
         newGenome.append("0".repeat(items.size()));
         for (int i = 0; i < infeasible.getGenome().length(); i++) {
             if (infeasible.getGenome().charAt(i) == '1')
-                newGenome.setCharAt(profitBasedSortedItems.indexOf(items.get(i)), '1');
+                newGenome.setCharAt(defaultIndexToSortedIndex.get(i), '1');
         }
 
         for (int i = 0; i < newGenome.length(); i++) {
@@ -203,7 +212,7 @@ public class MultiDimensionalKnapsackSolver {
         finalGenome.append("0".repeat(items.size()));
         for (int i = 0; i < infeasible.getGenome().length(); i++) {
             if (newGenome.charAt(i) == '1')
-                finalGenome.setCharAt(items.indexOf(profitBasedSortedItems.get(i)), '1');
+                finalGenome.setCharAt(sortedIndexToDefaultIndex.get(i), '1');
         }
         infeasible.setFitness(evaluateFitness(items, finalGenome.toString()));
         infeasible.setGenome(finalGenome.toString());
