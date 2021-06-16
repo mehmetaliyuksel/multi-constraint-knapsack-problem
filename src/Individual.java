@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Individual implements Comparable<Individual> {
     private String genome;
     private int fitness;

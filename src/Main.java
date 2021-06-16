@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
     public static int POPULATION_SIZE = 200;
-    public static int NUM_OF_GENERATIONS = 1000000;
+    public static int NUM_OF_GENERATIONS = 250000;
     public static double MUTATION_RATE = 0.05;
     public static double CROSS_OVER_RATE = 0.5;
     public static String INPUT_FILE = "input.txt";
@@ -43,7 +43,11 @@ public class Main {
                 new MultiDimensionalKnapsackSolver(POPULATION_SIZE, NUM_OF_GENERATIONS, MUTATION_RATE, CROSS_OVER_RATE,
                         items, knapsacks);
 
+
+        long start = System.currentTimeMillis();
         multiDimensionalKnapsackSolver.run();
+        long end = System.currentTimeMillis();
+        System.out.println("Execution time in seconds: " + (end - start) / 1000.0);
 
         Individual bestSolution = multiDimensionalKnapsackSolver.getBestSolution();
         ioManager.generateOutput(bestSolution.getFitness(), bestSolution.getGenome());

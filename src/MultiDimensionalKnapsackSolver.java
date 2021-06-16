@@ -184,12 +184,17 @@ public class MultiDimensionalKnapsackSolver {
 
 
     private void repair(Individual infeasible) {
+
+        // Initialize new genome
         StringBuilder newGenome = new StringBuilder();
         newGenome.append("0".repeat(items.size()));
+
+        // Reorder the indices default to sorted
         for (int i = 0; i < infeasible.getGenome().length(); i++) {
             if (infeasible.getGenome().charAt(i) == '1')
                 newGenome.setCharAt(defaultIndexToSortedIndex.get(i), '1');
         }
+
 
         for (int i = 0; i < newGenome.length(); i++) {
             if (newGenome.charAt(i) == '1') {
@@ -207,9 +212,10 @@ public class MultiDimensionalKnapsackSolver {
             }
         }
 
-        // Revert to original positioning
         StringBuilder finalGenome = new StringBuilder();
         finalGenome.append("0".repeat(items.size()));
+
+        // Reorder the indices sorted to default
         for (int i = 0; i < infeasible.getGenome().length(); i++) {
             if (newGenome.charAt(i) == '1')
                 finalGenome.setCharAt(sortedIndexToDefaultIndex.get(i), '1');
@@ -220,19 +226,14 @@ public class MultiDimensionalKnapsackSolver {
 
     public void run() {
 
-        long start = System.currentTimeMillis();
-
         for (int i = 0; i < POPULATION_SIZE; i++) {
             population.add(randomGenome(items.size()));
         }
-        for (int i = 0; i < NUM_OF_GENERATIONS; i++) {
+
+        for (int i = 1; i <= NUM_OF_GENERATIONS; i++) {
             generateNewGeneration(population);
             System.out.println("Current value = " + population.get(population.size() - 1).getFitness() + " " +
-                    "\t\tGENERATION = " + i+1);
-
+                    "\t\tGENERATION = " + i);
         }
-
-        long end = System.currentTimeMillis();
-        System.out.println("Execution time in seconds: " + (end - start) / 1000.0);
     }
 }
