@@ -145,36 +145,48 @@ public class MultiDimensionalKnapsackSolver {
     }
 
 
-    private void generateNewGeneration(List<Individual> population) {
-        boolean firstChild = false;
-        boolean secondChild = false;
+    private void generateNewPopulation(List<Individual> population) {
 
+        // Sort the population with respect to their fitness
         Collections.sort(population);
+
+        // Obtain 2 parents
         List<Individual> parents = selectParents(population);
+
+        // Apply crossover to the parents and obtain 2 new individuals
         List<Individual> children = crossOver(parents.get(0), parents.get(1));
 
+        // Apply mutation to the children obtained after the crossOver operation
         Individual mutatedChild1 = mutate(children.get(0));
+        Individual mutatedChild2 = mutate(children.get(1));
+
+        // If the mutated genome is not feasible, apply repair method
         if (!isFeasible(mutatedChild1.getGenome(), true))
             repair(mutatedChild1);
 
-        Individual mutatedChild2 = mutate(children.get(1));
         if (!isFeasible(mutatedChild2.getGenome(), true))
             repair(mutatedChild2);
 
+        // 2 individuals in the population having the lowest fitness are replaced with the 2 children
+        // obtained by these operations.
         children.set(0, mutatedChild1);
         children.set(1, mutatedChild2);
 
+        // Check whether the children are unique, if so, insert them to the beginning of the population
+        boolean isFirstChildUnique = true;
+        boolean isSecondChildUnique = true;
+
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            if (firstChild && secondChild)
+            if (!isFirstChildUnique && !isSecondChildUnique)
                 break;
             if (population.get(i).getGenome().equals(children.get(0).getGenome()))
-                firstChild = true;
+                isFirstChildUnique = false;
             if (population.get(i).getGenome().equals(children.get(1).getGenome()))
-                secondChild = true;
+                isSecondChildUnique = false;
         }
-        if (!firstChild)
+        if (isFirstChildUnique)
             population.set(0, children.get(0));
-        if (!secondChild)
+        if (isSecondChildUnique)
             population.set(1, (children.get(1)));
     }
 
@@ -189,13 +201,13 @@ public class MultiDimensionalKnapsackSolver {
         StringBuilder newGenome = new StringBuilder();
         newGenome.append("0".repeat(items.size()));
 
-        // Reorder the indices default to sorted
+        // Reorder the indices from default to sorted
         for (int i = 0; i < infeasible.getGenome().length(); i++) {
             if (infeasible.getGenome().charAt(i) == '1')
                 newGenome.setCharAt(defaultIndexToSortedIndex.get(i), '1');
         }
 
-
+        // Traverse the genome from the beginning, replacing ‘1’ with ‘0’ until a feasible solution is found
         for (int i = 0; i < newGenome.length(); i++) {
             if (newGenome.charAt(i) == '1') {
                 newGenome.setCharAt(i, '0');
@@ -204,6 +216,7 @@ public class MultiDimensionalKnapsackSolver {
             }
         }
 
+        // Traverse the genome from the end, replacing ‘0’ with ‘1’ if it does not violate any constraint
         for (int i = newGenome.length() - 1; i >= 0; i--) {
             if (newGenome.charAt(i) == '0') {
                 newGenome.setCharAt(i, '1');
@@ -215,7 +228,7 @@ public class MultiDimensionalKnapsackSolver {
         StringBuilder finalGenome = new StringBuilder();
         finalGenome.append("0".repeat(items.size()));
 
-        // Reorder the indices sorted to default
+        // Reorder the indices from sorted to default
         for (int i = 0; i < infeasible.getGenome().length(); i++) {
             if (newGenome.charAt(i) == '1')
                 finalGenome.setCharAt(sortedIndexToDefaultIndex.get(i), '1');
@@ -226,12 +239,14 @@ public class MultiDimensionalKnapsackSolver {
 
     public void run() {
 
+        // Generate initial population
         for (int i = 0; i < POPULATION_SIZE; i++) {
             population.add(randomGenome(items.size()));
         }
 
+        // Run until the number of generations is reached
         for (int i = 1; i <= NUM_OF_GENERATIONS; i++) {
-            generateNewGeneration(population);
+            generateNewPopulation(population);
             System.out.println("Current value = " + population.get(population.size() - 1).getFitness() + " " +
                     "\t\tGENERATION = " + i);
         }
